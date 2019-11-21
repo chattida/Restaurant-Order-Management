@@ -20,6 +20,7 @@ public class Order {
             if (value - 1 > 0) {
                 data.put(name, value - 1);
             } else if (value - 1 == 0) {
+                Total.removePrice(name);
                 data.remove(name);
             }
         } catch (Exception e) {

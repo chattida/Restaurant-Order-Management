@@ -1,6 +1,6 @@
 [
     {
-        "name": "Pork Bg",
+        "name": "Pork_Bg",
         "price": "65.00",
         "img": "menu_1.png"
     },
@@ -30,22 +30,22 @@
         "img": "menu_6.png"
     },
     {
-        "name": "Chicken Pop",
+        "name": "Chicken_Pop",
         "price": "55.00",
         "img": "menu_7.png"
     },
     {
-        "name": "Mash PTT",
+        "name": "Mash_PTT",
         "price": "45.00",
         "img": "menu_8.png"
     },
     {
-        "name": "french fries",
+        "name": "french_fries",
         "price": "79.00",
         "img": "menu_9.png"
     },
     {
-        "name": "Beef Bg",
+        "name": "Beef_Bg",
         "price": "89.00",
         "img": "menu_10.png"
     },
@@ -55,7 +55,7 @@
         "img": "menu_11.png"
     },
     {
-        "name": "Fish Bg",
+        "name": "Fish_Bg",
         "price": "65.00",
         "img": "menu_12.png"
     },
@@ -70,7 +70,7 @@
         "img": "menu_14.png"
     },
     {
-        "name": "Soft Cream",
+        "name": "Soft_Cream",
         "price": "54.00",
         "img": "menu_15.png"
     }

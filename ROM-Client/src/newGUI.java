@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -10,8 +11,8 @@ import org.json.simple.*;
 
 public class newGUI implements ActionListener {
     private JFrame frame;
-    private JPanel header, content, footer, timestamp, menuList, row, orderList;
-    private JLabel brand, date;
+    private JPanel header, content, right_content, footer, timestamp, menuList, row, orderList;
+    private JLabel brand, date, price_total;
     private Order order;
     private JSONArray obj;
 
@@ -64,14 +65,13 @@ public class newGUI implements ActionListener {
         Json data = new Json();
         obj = data.openJson("data/menu.json");
         menuList = new JPanel();
-        menuList.setLayout(new GridLayout(3, 1));
+        menuList.setLayout(new GridLayout(5, 1));
         menuList.setBackground(Color.pink);
         row = new JPanel();
-        row.setBackground(Color.BLUE);
+        row.setBackground(new Color(240, 93, 70));
         for (int i = 0; i < obj.size(); i++) {
             JSONObject obj1 = (JSONObject) obj.get(i);
             JPanel menu = new JPanel();
-
             // price, button
             JPanel small = new JPanel();
             small.setLayout(new GridLayout(3, 1));
@@ -94,21 +94,39 @@ public class newGUI implements ActionListener {
             // add to menu
             menu.add(image, BorderLayout.NORTH);
             menu.add(small, BorderLayout.CENTER);
+            menu.setPreferredSize(new Dimension(200, 96));
             row.add(menu);
-            if (i % 5 == 4 && i != 0) {
+            if (i % 3 == 2 && i != 0) {
                 menuList.add(row);
                 row = new JPanel();
-                row.setBackground(Color.BLUE);
+                row.setBackground(new Color(240, 93, 70));
             }
 
         }
+        // right content
+        right_content = new JPanel();
+        right_content.setLayout(new BoxLayout(right_content, BoxLayout.Y_AXIS));
+        // price
+        JPanel priceBox = new JPanel();
+        priceBox.setLayout(new GridLayout(1,2));
+        priceBox.setPreferredSize(new Dimension(480, 94));
+        JLabel price_text = new JLabel(" Total: ");
+        price_total = new JLabel("00.00 ฿ ");
+        price_text.setHorizontalAlignment(JLabel.LEFT);
+        price_total.setHorizontalAlignment(JLabel.RIGHT);
+        price_text.setFont(new Font("Courier New", Font.BOLD, 40));
+        price_total.setFont(new Font("Courier New", Font.BOLD, 40));
+        priceBox.add(price_text);
+        priceBox.add(price_total);
         // table
         orderList = new JPanel();
-        orderList.setBackground(Color.cyan);
+        orderList.setBackground(new Color(240, 168, 65));
+        right_content.add(orderList);
+        right_content.add(priceBox);
         addTable(orderList);
         // add menuList, orderList to content
         content.add(menuList);
-        content.add(orderList);
+        content.add(right_content);
         // footer
         footer = new JPanel();
         footer.setLayout(new FlowLayout());
@@ -120,7 +138,8 @@ public class newGUI implements ActionListener {
         reset.setFont(new Font("Courier New", Font.BOLD, 16));
         summit.addActionListener(this);
         reset.addActionListener(this);
-//        summit.setIcon(new Im);
+        summit.setIcon(new ImageIcon("img/cart.png"));
+        reset.setIcon(new ImageIcon("img/trash.png"));
         // add button to footer
         footer.add(summit);
         footer.add(reset);
@@ -149,11 +168,13 @@ public class newGUI implements ActionListener {
                 if (obj1.get("name").equals(key)) {
                     double price = Double.parseDouble("" + obj1.get("price"));
                     int total = data.get(key);
-                    tableData[index][2] = "" + (price * total);
+                    tableData[index][2] = String.format("%.02f ", (price * total));
+                    Total.addPrice(key, (price * total));
                 }
             }
             index++;
         }
+        price_total.setText(String.format("%.02f ฿ ", Total.getTotal()));
         TableModel model = new DefaultTableModel(tableData, column) {
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -174,6 +195,7 @@ public class newGUI implements ActionListener {
 //        System.out.println(ae.getActionCommand());
         if (ae.getActionCommand().equals("Reset")) {
             order.resetOrder();
+            Total.reset();
             addTable(orderList);
         } else if (ae.getActionCommand().equals("Order")) {
             Json orderJSON = new Json();
@@ -191,6 +213,8 @@ public class newGUI implements ActionListener {
             }
             addTable(orderList);
         }
+        System.out.println(Total.getAllprice());
+        System.out.println(Total.getTotal());
 //        System.out.println(order.getOrder());
     }
 
