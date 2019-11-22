@@ -54,6 +54,8 @@ public class newGUI implements ActionListener {
         time.setFont(new Font("Courier New", Font.BOLD, 14));
         date.setHorizontalAlignment(JLabel.RIGHT);
         time.setHorizontalAlignment(JLabel.RIGHT);
+        date.setIcon(new ImageIcon("img/calendar.png"));
+        time.setIcon(new ImageIcon("img/time.png"));
         timestamp.add(date);
         timestamp.add(time);
         header.add(timestamp);
@@ -140,6 +142,8 @@ public class newGUI implements ActionListener {
         reset.addActionListener(this);
         summit.setIcon(new ImageIcon("img/cart.png"));
         reset.setIcon(new ImageIcon("img/trash.png"));
+        summit.setPreferredSize(new Dimension(100, 50));
+        reset.setPreferredSize(new Dimension(100, 50));
         // add button to footer
         footer.add(summit);
         footer.add(reset);
@@ -161,7 +165,7 @@ public class newGUI implements ActionListener {
         String column[] = {"Order", "Total", "Price"};
         int index = 0;
         for (String key : data.keySet()) {
-            tableData[index][0] = key;
+            tableData[index][0] = " " + key;
             tableData[index][1] = data.get(key);
             for (int i = 0; i < obj.size(); i++) {
                 JSONObject obj1 = (JSONObject) obj.get(i);
@@ -184,6 +188,18 @@ public class newGUI implements ActionListener {
         table.getTableHeader().setFont(new Font("Courier New", Font.BOLD, 16));
         table.setFont(new Font("Courier New", Font.BOLD, 18));
         table.setRowHeight(table.getRowHeight() + 10);
+        // center header
+        TableCellRenderer rendererFromHeader = table.getTableHeader().getDefaultRenderer();
+        JLabel headerLabel = (JLabel) rendererFromHeader;
+        headerLabel.setHorizontalAlignment(JLabel.CENTER);
+        // center cell
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        // right cell
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment( JLabel.RIGHT );
+        table.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -213,8 +229,8 @@ public class newGUI implements ActionListener {
             }
             addTable(orderList);
         }
-        System.out.println(Total.getAllprice());
-        System.out.println(Total.getTotal());
+//        System.out.println(Total.getAllprice());
+//        System.out.println(Total.getTotal());
 //        System.out.println(order.getOrder());
     }
 
