@@ -111,6 +111,7 @@ public class newGUI implements ActionListener {
         // price
         JPanel priceBox = new JPanel();
         priceBox.setLayout(new GridLayout(1,2));
+        priceBox.setBackground(new Color(240, 168, 65));
         priceBox.setPreferredSize(new Dimension(480, 94));
         JLabel price_text = new JLabel(" Total: ");
         price_total = new JLabel("00.00 ฿ ");
