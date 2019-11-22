@@ -5,6 +5,7 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 public class GUI implements ActionListener {
@@ -144,7 +145,7 @@ public class GUI implements ActionListener {
                 JLabel l = new JLabel();
                 JPanel panel = new JPanel();
                 JLabel countdown = new JLabel();
-                Countdown time = new Countdown();
+                Countdown time = new Countdown(Main.getSendtime(i), Main.getGivetime(i));
                 Thread thread = new Thread(time);
                 thread.start();
                 panel.setLayout(new GridLayout(1, 2));

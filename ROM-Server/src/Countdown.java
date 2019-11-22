@@ -1,10 +1,22 @@
 import javax.swing.*;
-import java.time.format.DateTimeFormatter;
 
 
 public class Countdown extends JLabel implements Runnable {
+    private long gettime = 0;
+    private long nowtime = 0;
+    private long sec = 0;
+
+    public Countdown(long x, long y) {
+        this.nowtime = y;
+        this.gettime = x;
+        this.sec = Math.abs((gettime - nowtime)/1000);
+        System.out.println(nowtime);
+        System.out.println(gettime);
+        System.out.println(sec);
+        System.out.println("-------------------");
+    }
+
     public void run() {
-        int sec = 0;
         while (true) {
             if (sec < 60){
                 this.setText(sec+"s ");
