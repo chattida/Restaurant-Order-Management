@@ -211,7 +211,6 @@ public class GUI implements ActionListener {
         table.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         orderList.add(scrollPane);
     }
@@ -219,19 +218,35 @@ public class GUI implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
 //        System.out.println(ae.getActionCommand());
         if (ae.getActionCommand().equals("Reset")) {
-            order.resetOrder();
-            Total.reset();
-            addTable(orderList);
+            if (!order.getOrder().isEmpty()) {
+                ImageIcon icon = new ImageIcon("img/alert.png");
+                int n = JOptionPane.showConfirmDialog(null,
+                        "Confirm Reset",
+                        "Reset",
+                        JOptionPane.YES_NO_OPTION, 3, icon);
+                if (n == 0) {
+                    order.resetOrder();
+                    Total.reset();
+                    addTable(orderList);
+                }
+            }
         } else if (ae.getActionCommand().equals("Order")) {
                 if (!order.getOrder().isEmpty()) {
-                    Json orderJSON = new Json();
-                    order.addOrderID();
-                    Network.sendSocket(orderJSON.toJson(order.getOrder(), order));
-                    System.out.println(orderJSON.toJson(order.getOrder(), order));
+                    ImageIcon icon = new ImageIcon("img/alert.png");
+                    int n = JOptionPane.showConfirmDialog(null,
+                            "Confirm Order",
+                            "Order",
+                            JOptionPane.YES_NO_OPTION, 3, icon);
+                    if (n == 0) {
+                        Json orderJSON = new Json();
+                        order.addOrderID();
+                        Network.sendSocket(orderJSON.toJson(order.getOrder(), order));
+//                        System.out.println(orderJSON.toJson(order.getOrder(), order));
+                        order.resetOrder();
+                        Total.reset();
+                        addTable(orderList);
+                    }
                 }
-                order.resetOrder();
-                Total.reset();
-                addTable(orderList);
         } else {
             String name = ae.getActionCommand();
             String[] check = name.split(" ");
