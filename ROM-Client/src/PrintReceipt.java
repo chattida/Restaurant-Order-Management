@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.print.*;
 
-public class PrintReceipt extends Clock implements Printable {
+public class PrintReceipt implements Printable {
 
     public static double cmToPPI(double cm) {
         return cm * 0.393600787 * 72d;
@@ -26,6 +26,7 @@ public class PrintReceipt extends Clock implements Printable {
 
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
 
+        Clock clock = new Clock();
         int result = NO_SUCH_PAGE;
         if (pageIndex == 0) {
 
@@ -37,17 +38,19 @@ public class PrintReceipt extends Clock implements Printable {
                 int yShift = 10;
                 int headerRectHeight = 15;
 
+                System.out.println(GUI.getMySender());
+
                 g2d.setFont(new Font("Courier New", Font.BOLD, 10));
-                g2d.drawString("      " + getCurrentDate() + "     " + getCurrentTime() + "  ", 12, y);
+                g2d.drawString("      " + clock.getCurrentDate() + "     " + clock.getCurrentTime() + "  ", 12, y);
                 y += yShift;
                 g2d.drawString("-------------------------------------", 12, y);
                 y += yShift;
-                g2d.drawString("      Restaurant Bill Receipt        ", 12, y);
+                g2d.drawString("     Restaurant Order Management     ", 12, y);
                 y += yShift;
                 g2d.drawString("-------------------------------------", 12, y);
                 y += headerRectHeight;
                 y += yShift;
-                g2d.drawString(" Food Name                 T.Price   ", 10, y);
+                g2d.drawString(" Food Ordered          Total Price   ", 10, y);
                 y += yShift;
                 g2d.drawString("-------------------------------------", 10, y);
                 y += headerRectHeight;
@@ -68,7 +71,7 @@ public class PrintReceipt extends Clock implements Printable {
                 y += yShift;
                 g2d.drawString("*************************************", 10, y);
                 y += yShift;
-                g2d.drawString(" THANKS FOR VISITING OUR RESTUARANT! ", 10, y);
+                g2d.drawString(" THANKS FOR VISITING OUR RESTUARANT  ", 10, y);
                 y += yShift;
                 g2d.drawString("*************************************", 10, y);
                 y += yShift;

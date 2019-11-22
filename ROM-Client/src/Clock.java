@@ -1,6 +1,6 @@
 import javax.swing.*;
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Clock extends JLabel implements Runnable {
     public void run() {

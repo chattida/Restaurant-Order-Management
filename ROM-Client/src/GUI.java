@@ -17,6 +17,7 @@ public class GUI implements ActionListener {
     private Order order;
     private JSONArray obj;
     private int order_id = 1;
+    private static Object mysender;
 
     public GUI(String name) {
         init(name);
@@ -268,6 +269,10 @@ public class GUI implements ActionListener {
         int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
         int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(x, y);
+    }
+
+    public static Object getMySender() {
+        return mysender;
     }
 
 }

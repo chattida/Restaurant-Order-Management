@@ -44,4 +44,8 @@ public class Order {
     public HashMap<String, Integer> getOrder() {
         return data;
     }
+
+    public HashMap<String, Integer> getData() {
+        return data;
+    }
 }
