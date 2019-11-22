@@ -1,4 +1,6 @@
 import java.io.FileReader;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashMap;
 
 import org.json.simple.*;
@@ -17,7 +19,7 @@ public class Json {
         return obj;
     }
 
-    JSONArray toJson(HashMap<String, Integer> data, Order order) {
+    JSONArray toJson(HashMap<String, Integer> data, Order order, LocalDateTime time) {
         JSONArray list = new JSONArray();
         for (String key : data.keySet()) {
             JSONObject temp = new JSONObject();
@@ -26,6 +28,7 @@ public class Json {
             list.add(temp);
         }
         list.add(order.getOrderID());
+        list.add(time.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
         return list;
     }
 }
