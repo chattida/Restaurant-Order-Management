@@ -9,14 +9,15 @@ import java.time.LocalDateTime;
 
 import org.json.simple.*;
 
-public class newGUI implements ActionListener {
+public class GUI implements ActionListener {
     private JFrame frame;
     private JPanel header, content, right_content, footer, timestamp, menuList, row, orderList;
     private JLabel brand, date, price_total;
     private Order order;
     private JSONArray obj;
+    private int order_id = 1;
 
-    public newGUI(String name) {
+    public GUI(String name) {
         init(name);
     }
 
@@ -71,33 +72,40 @@ public class newGUI implements ActionListener {
         menuList.setBackground(Color.pink);
         row = new JPanel();
         row.setBackground(new Color(240, 93, 70));
-        for (int i = 0; i < obj.size(); i++) {
-            JSONObject obj1 = (JSONObject) obj.get(i);
-            JPanel menu = new JPanel();
-            // price, button
-            JPanel small = new JPanel();
-            small.setLayout(new GridLayout(3, 1));
-            // menu image
-            JLabel image = new JLabel();
-            image.setIcon(new ImageIcon("img/" + obj1.get("img")));
-            image.setHorizontalAlignment(JLabel.CENTER);
-            // menu price
-            JLabel price = new JLabel(" Price: " + obj1.get("price") + " ฿");
-            price.setHorizontalAlignment(JLabel.CENTER);
-            // add item, remove item to order
-            JButton button = new JButton("+ " + obj1.get("name"));
-            JButton button1 = new JButton("- " + obj1.get("name"));
-            button.addActionListener(this);
-            button1.addActionListener(this);
-            // add to small
-            small.add(price);
-            small.add(button);
-            small.add(button1);
-            // add to menu
-            menu.add(image, BorderLayout.NORTH);
-            menu.add(small, BorderLayout.CENTER);
-            menu.setPreferredSize(new Dimension(200, 96));
-            row.add(menu);
+        // add menu
+        for (int i = 0; i < 15; i++) {
+            if (i < obj.size()) {
+                JSONObject obj1 = (JSONObject) obj.get(i);
+                JPanel menu = new JPanel();
+                // price, button
+                JPanel small = new JPanel();
+                small.setLayout(new GridLayout(3, 1));
+                // menu image
+                JLabel image = new JLabel();
+                image.setIcon(new ImageIcon("img/" + obj1.get("img")));
+                image.setHorizontalAlignment(JLabel.CENTER);
+                // menu price
+                JLabel price = new JLabel(" Price: " + obj1.get("price") + " ฿");
+                price.setHorizontalAlignment(JLabel.CENTER);
+                // add item, remove item to order
+                JButton button = new JButton("+ " + obj1.get("name"));
+                JButton button1 = new JButton("- " + obj1.get("name"));
+                button.addActionListener(this);
+                button1.addActionListener(this);
+                // add to small
+                small.add(price);
+                small.add(button);
+                small.add(button1);
+                // add to menu
+                menu.add(image, BorderLayout.NORTH);
+                menu.add(small, BorderLayout.CENTER);
+                menu.setPreferredSize(new Dimension(200, 96));
+                row.add(menu);
+            } else {
+                JPanel menu = new JPanel();
+                menu.setPreferredSize(new Dimension(200, 96));
+                row.add(menu);
+            }
             if (i % 3 == 2 && i != 0) {
                 menuList.add(row);
                 row = new JPanel();
@@ -215,11 +223,15 @@ public class newGUI implements ActionListener {
             Total.reset();
             addTable(orderList);
         } else if (ae.getActionCommand().equals("Order")) {
-            Json orderJSON = new Json();
-//            System.out.println(orderJSON.toJson(order.getOrder()));
-            Network.sendSocket(orderJSON.toJson(order.getOrder()));
-            order.resetOrder();
-            addTable(orderList);
+                if (!order.getOrder().isEmpty()) {
+                    Json orderJSON = new Json();
+                    order.addOrderID();
+                    Network.sendSocket(orderJSON.toJson(order.getOrder(), order));
+                    System.out.println(orderJSON.toJson(order.getOrder(), order));
+                }
+                order.resetOrder();
+                Total.reset();
+                addTable(orderList);
         } else {
             String name = ae.getActionCommand();
             String[] check = name.split(" ");

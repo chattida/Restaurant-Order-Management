@@ -2,11 +2,11 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.ImageIcon;
 
-public class Splash {
+public class SplashScreen {
     private JFrame frame;
     private JLabel loading;
 
-    public Splash() {
+    public SplashScreen() {
         this.init();
     }
 
@@ -27,7 +27,7 @@ public class Splash {
             System.out.println(e);
         }
         frame.dispose();
-        new newGUI("Restaurant Order Management");
+        new GUI("Restaurant Order Management");
     }
 
     public void centerWindow(JFrame frame) {

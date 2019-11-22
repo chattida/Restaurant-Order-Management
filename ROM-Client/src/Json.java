@@ -17,7 +17,7 @@ public class Json {
         return obj;
     }
 
-    JSONArray toJson(HashMap<String, Integer> data) {
+    JSONArray toJson(HashMap<String, Integer> data, Order order) {
         JSONArray list = new JSONArray();
         for (String key : data.keySet()) {
             JSONObject temp = new JSONObject();
@@ -25,6 +25,7 @@ public class Json {
             temp.put("total", data.get(key));
             list.add(temp);
         }
+        list.add(order.getOrderID());
         return list;
     }
 }
