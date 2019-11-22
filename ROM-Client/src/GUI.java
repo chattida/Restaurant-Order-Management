@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -232,7 +231,7 @@ public class GUI implements ActionListener {
                     System.out.println(orderJSON.toJson(order.getOrder(), order));
 
                     PrinterJob pj = PrinterJob.getPrinterJob();
-                    pj.setPrintable(new PrintReceipt(), PaperSize.getPageFormat(pj));
+                    pj.setPrintable(new PrintReceipt(), PrintReceipt.getPageFormat(pj));
                     try {
                         pj.print();
 
