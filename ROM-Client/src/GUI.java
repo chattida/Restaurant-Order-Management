@@ -3,6 +3,8 @@ import javax.swing.border.Border;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.HashMap;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
@@ -228,6 +230,16 @@ public class GUI implements ActionListener {
                     order.addOrderID();
                     Network.sendSocket(orderJSON.toJson(order.getOrder(), order));
                     System.out.println(orderJSON.toJson(order.getOrder(), order));
+
+                    PrinterJob pj = PrinterJob.getPrinterJob();
+                    pj.setPrintable(new PrintReceipt(), PaperSize.getPageFormat(pj));
+                    try {
+                        pj.print();
+
+                    }
+                    catch (PrinterException ex) {
+                        ex.printStackTrace();
+                    }
                 }
                 order.resetOrder();
                 Total.reset();
@@ -253,4 +265,5 @@ public class GUI implements ActionListener {
         int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(x, y);
     }
+
 }
