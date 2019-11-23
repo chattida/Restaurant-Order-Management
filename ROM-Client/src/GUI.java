@@ -22,6 +22,8 @@ public class GUI implements ActionListener {
     public void init(String name) {
         // frame
         frame = new JFrame("" + name);
+        // icon for windows
+        frame.setIconImage(new ImageIcon("img/icon.png").getImage());
         frame.setVisible(true);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

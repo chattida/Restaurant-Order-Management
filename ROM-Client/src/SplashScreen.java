@@ -1,7 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.ImageIcon;
-import com.apple.eawt.Application;
 
 public class SplashScreen {
     private JFrame frame;
@@ -12,14 +11,10 @@ public class SplashScreen {
     }
 
     public void init() {
-        //icon for mac
-        Application application = Application.getApplication();
-        Image logo = Toolkit.getDefaultToolkit().getImage("img/dock.png");
-        application.setDockIconImage(logo);
         // frame
         JFrame frame = new JFrame();
-        // icon for windows (not sure)
-        frame.setIconImage(new ImageIcon("img/dock.png").getImage());
+        // icon for windows
+        frame.setIconImage(new ImageIcon("img/icon.png").getImage());
         JLabel loading = new JLabel();
         loading.setIcon(new ImageIcon("img/loading.png"));
         frame.add(loading);
@@ -35,7 +30,7 @@ public class SplashScreen {
             System.out.println(e);
         }
         frame.dispose();
-        new GUI("Restaurant Order Management");
+        new GUI("Restaurant Order Management - Client");
     }
 
     public void centerWindow(JFrame frame) {
