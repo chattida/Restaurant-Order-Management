@@ -122,7 +122,7 @@ public class GUI implements ActionListener {
         right_content.setLayout(new BoxLayout(right_content, BoxLayout.Y_AXIS));
         // price
         JPanel priceBox = new JPanel();
-        priceBox.setLayout(new GridLayout(1,2));
+        priceBox.setLayout(new GridLayout(1, 2));
         priceBox.setBackground(new Color(240, 168, 65));
         priceBox.setPreferredSize(new Dimension(480, 94));
         JLabel price_text = new JLabel(" Total: ");
@@ -207,11 +207,11 @@ public class GUI implements ActionListener {
         headerLabel.setHorizontalAlignment(JLabel.CENTER);
         // center cell
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         // right cell
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
-        rightRenderer.setHorizontalAlignment( JLabel.RIGHT );
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
         table.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
 
         JScrollPane scrollPane = new JScrollPane(table);
@@ -235,36 +235,35 @@ public class GUI implements ActionListener {
                 }
             }
         } else if (ae.getActionCommand().equals("Order")) {
-                if (!order.getOrder().isEmpty()) {
-                    ImageIcon icon = new ImageIcon("img/alert.png");
-                    int n = JOptionPane.showConfirmDialog(null,
-                            "Confirm Order",
-                            "Order",
-                            JOptionPane.YES_NO_OPTION, 3, icon);
-                    if (n == 0) {
-                        Json orderJSON = new Json();
-                        order.addOrderID();
-                        Network network = new Network(orderJSON.toJson(order.getOrder(), order, LocalDateTime.now()));
-                        Thread thread = new Thread(network);
-                        thread.start();
-//                        Network.sendSocket(orderJSON.toJson(order.getOrder(), order, LocalDateTime.now()));
-//                        System.out.println(orderJSON.toJson(order.getOrder(), order));
-                        boughtlist = order.getOrder();
-//
-                        PrinterJob pj = PrinterJob.getPrinterJob();
-                        pj.setPrintable(new PrintReceipt(), PrintReceipt.getPageFormat(pj));
-                        try {
-                            pj.print();
-                        }
-                        catch (PrinterException ex) {
-                            ex.printStackTrace();
-                        }
-
-                        order.resetOrder();
-                        Total.reset();
-                        addTable(orderList);
+            if (!order.getOrder().isEmpty()) {
+                ImageIcon icon = new ImageIcon("img/alert.png");
+                int n = JOptionPane.showConfirmDialog(null,
+                        "Confirm Order",
+                        "Order",
+                        JOptionPane.YES_NO_OPTION, 3, icon);
+                if (n == 0) {
+                    Json orderJSON = new Json();
+                    order.addOrderID();
+                    Network network = new Network(orderJSON.toJson(order.getOrder(), order, LocalDateTime.now()));
+                    Thread thread = new Thread(network);
+                    thread.start();
+//                    Network.sendSocket(orderJSON.toJson(order.getOrder(), order, LocalDateTime.now()));
+//                    System.out.println(orderJSON.toJson(order.getOrder(), order));
+                    boughtlist = order.getOrder();
+                    PrinterJob pj = PrinterJob.getPrinterJob();
+                    pj.setPrintable(new PrintReceipt(), PrintReceipt.getPageFormat(pj));
+                    try {
+                        pj.print();
+                    } catch (PrinterException ex) {
+                        ex.printStackTrace();
                     }
+
+                    order.resetOrder();
+                    Total.reset();
+                    addTable(orderList);
+
                 }
+            }
         } else {
             String name = ae.getActionCommand();
             String[] check = name.split(" ");
