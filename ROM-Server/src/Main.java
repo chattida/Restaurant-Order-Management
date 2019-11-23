@@ -11,6 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         Network.createSocket();
+        new SplashScreen();
         new GUI();
         now = new ArrayList();
         while (true) {

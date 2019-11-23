@@ -5,7 +5,6 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 public class GUI implements ActionListener {
@@ -15,7 +14,9 @@ public class GUI implements ActionListener {
     private static int positionShow = 0;
 
     public GUI() {
-        fr = new JFrame("Server");
+        fr = new JFrame("Restaurant Order Management - Server");
+        // icon for windows
+        fr.setIconImage(new ImageIcon("img/icon.png").getImage());
 
         p0 = new JPanel();
         p1 = new JPanel();
@@ -39,8 +40,22 @@ public class GUI implements ActionListener {
         btn3 = new JButton("Finish");
         btn4 = new JButton("Finish");
         btn5 = new JButton("Finish");
-        btn_l = new JButton("<");
-        btn_r = new JButton(">");
+        btn_l = new JButton(" Back");
+        btn_r = new JButton("Next ");
+        btn_r.setHorizontalTextPosition(SwingConstants.LEFT);
+
+        btn_l.setFont(new Font("Courier New", Font.BOLD, 18));
+        btn_r.setFont(new Font("Courier New", Font.BOLD, 18));
+
+        btn_l.setIcon(new ImageIcon("img/left-arrow.png"));
+        btn_r.setIcon(new ImageIcon("img/left-right.png"));
+
+        btn0.setIcon(new ImageIcon("img/checked.png"));
+        btn1.setIcon(new ImageIcon("img/checked.png"));
+        btn2.setIcon(new ImageIcon("img/checked.png"));
+        btn3.setIcon(new ImageIcon("img/checked.png"));
+        btn4.setIcon(new ImageIcon("img/checked.png"));
+        btn5.setIcon(new ImageIcon("img/checked.png"));
 
         btn0.setBackground(new Color(240, 168, 65));
         btn1.setBackground(new Color(240, 168, 65));
@@ -53,6 +68,8 @@ public class GUI implements ActionListener {
         btn_l.setPreferredSize(new Dimension(50, 50));
         btn_r.setBackground(Color.darkGray);
         btn_r.setForeground(Color.WHITE);
+
+
 
         btn0.addActionListener(this);
         btn1.addActionListener(this);
@@ -106,6 +123,8 @@ public class GUI implements ActionListener {
         fr.setVisible(true);
         fr.setResizable(false);
         centerWindow(fr);
+        fr.setDefaultCloseOperation(3);
+
     }
 
     public static void reframe(int p) {
@@ -248,11 +267,9 @@ public class GUI implements ActionListener {
         } else if (ae.getSource().equals(btn_l)) {
             positionShow = Math.max(0, positionShow - 1);
             reframe(positionShow);
-            System.out.println("l");
         } else if (ae.getSource().equals(btn_r)) {
             positionShow = Math.min(Main.getNow().size() - 6, positionShow + 1);
             reframe(positionShow);
-            System.out.println('r');
         }
     }
 }
