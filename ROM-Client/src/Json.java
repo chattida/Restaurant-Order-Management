@@ -8,7 +8,7 @@ import java.time.ZoneId;
 import java.util.HashMap;
 
 public class Json {
-    JSONArray openJson(String path) {
+    public JSONArray openJson(String path) {
         JSONParser jsonParser = new JSONParser();
         JSONArray obj = null;
         try {
@@ -20,7 +20,7 @@ public class Json {
         return obj;
     }
 
-    JSONArray toJson(HashMap<String, Integer> data, Order order, LocalDateTime time) {
+    public JSONArray toJson(HashMap<String, Integer> data, Order order, LocalDateTime time) {
         JSONArray list = new JSONArray();
         for (String key : data.keySet()) {
             JSONObject temp = new JSONObject();
