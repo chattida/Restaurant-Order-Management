@@ -29,7 +29,6 @@ public class Total {
         obj = data.openJson("data/menu.json");
         for (int i = 0; i < obj.size(); i++) {
             JSONObject obj1 = (JSONObject) obj.get(i);
-            System.out.println(obj1.get("name").toString());
             if (obj1.get("name").toString().equals(key)) {
                 double price = Double.parseDouble("" + obj1.get("price"));
                 total = String.format("%.02f ", (price * count));
