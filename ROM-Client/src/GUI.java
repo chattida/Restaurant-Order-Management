@@ -7,6 +7,7 @@ import java.awt.print.PrinterJob;
 import java.util.HashMap;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+
 import org.json.simple.*;
 
 public class GUI implements ActionListener {
@@ -16,7 +17,7 @@ public class GUI implements ActionListener {
     private Order order;
     private JSONArray obj;
     private int order_id = 1;
-    private static Object mysender;
+    private static HashMap boughtlist;
 
     public GUI(String name) {
         init(name);
@@ -242,7 +243,18 @@ public class GUI implements ActionListener {
                         Json orderJSON = new Json();
                         order.addOrderID();
                         Network.sendSocket(orderJSON.toJson(order.getOrder(), order, LocalDateTime.now()));
-                        System.out.println(orderJSON.toJson(order.getOrder(), order, LocalDateTime.now()));
+//                        System.out.println(orderJSON.toJson(order.getOrder(), order));
+                        boughtlist = order.getOrder();
+
+                        PrinterJob pj = PrinterJob.getPrinterJob();
+                        pj.setPrintable(new PrintReceipt(), PrintReceipt.getPageFormat(pj));
+                        try {
+                            pj.print();
+                        }
+                        catch (PrinterException ex) {
+                            ex.printStackTrace();
+                        }
+
                         order.resetOrder();
                         Total.reset();
                         addTable(orderList);
@@ -270,8 +282,8 @@ public class GUI implements ActionListener {
         frame.setLocation(x, y);
     }
 
-    public static Object getMySender() {
-        return mysender;
+    public static HashMap getBoughtList() {
+        return boughtlist;
     }
 
 }

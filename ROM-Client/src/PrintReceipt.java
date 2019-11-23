@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.print.*;
+import java.util.HashMap;
 
 public class PrintReceipt implements Printable {
 
@@ -38,8 +39,6 @@ public class PrintReceipt implements Printable {
                 int yShift = 10;
                 int headerRectHeight = 15;
 
-                System.out.println(GUI.getMySender());
-
                 g2d.setFont(new Font("Courier New", Font.BOLD, 10));
                 g2d.drawString("      " + clock.getCurrentDate() + "     " + clock.getCurrentTime() + "  ", 12, y);
                 y += yShift;
@@ -49,25 +48,33 @@ public class PrintReceipt implements Printable {
                 y += yShift;
                 g2d.drawString("-------------------------------------", 12, y);
                 y += headerRectHeight;
+                g2d.drawString("Order ID: " + String.format("%04d", Order.getOrderNum()), 10, y);
                 y += yShift;
-                g2d.drawString(" Food Ordered          Total Price   ", 10, y);
+                g2d.drawString("Food Ordered             Total Price ", 10, y);
                 y += yShift;
                 g2d.drawString("-------------------------------------", 10, y);
                 y += headerRectHeight;
 //                g2d.drawString(" " + pn1a + "                  " + pp1a + "  ", 10, y);
 //                y += yShift;
 //                Order.getOrder().size();
-//                for (int i = 0; i < k; i++)
+                HashMap boughtlist = GUI.getBoughtList();
+                for (Object i : boughtlist.keySet()) {
+                    String firstpart = i + " * [" + boughtlist.get(i) + "]";
+                    String secondpart = Total.getPrice(i + "", Integer.parseInt(boughtlist.get(i) + ""));
+                    System.out.println(firstpart + repeat(36 - firstpart.length() - secondpart.length()) + secondpart);
+                    g2d.drawString(firstpart + repeat(36 - firstpart.length() - secondpart.length()) + secondpart, 10, y);
+                    y += yShift;
+                }
 
                 g2d.drawString("-------------------------------------", 10, y);
                 y += yShift;
-                g2d.drawString(" Total amount: " + String.format("%.02f ฿ ", Total.getTotal()) + "               ", 10, y);
+                g2d.drawString(" Grand Total: " + String.format("%.02f ฿ ", Total.getTotal()), 10, y);
                 y += yShift;
                 g2d.drawString("-------------------------------------", 10, y);
                 y += yShift;
-                g2d.drawString("          Free Home Delivery         ", 10, y);
+                g2d.drawString("  FASTER THAN 5 MINUTE OR FREE MEAL  ", 10, y);
                 y += yShift;
-                g2d.drawString("             03111111111             ", 10, y);
+                g2d.drawString("             02XXXXXXX               ", 10, y);
                 y += yShift;
                 g2d.drawString("*************************************", 10, y);
                 y += yShift;
@@ -83,5 +90,9 @@ public class PrintReceipt implements Printable {
             result = PAGE_EXISTS;
         }
         return result;
+    }
+
+    public String repeat(int count) {
+        return new String(new char[count]).replace("\0", " ");
     }
 }
