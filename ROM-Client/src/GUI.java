@@ -244,10 +244,13 @@ public class GUI implements ActionListener {
                     if (n == 0) {
                         Json orderJSON = new Json();
                         order.addOrderID();
-                        Network.sendSocket(orderJSON.toJson(order.getOrder(), order, LocalDateTime.now()));
+                        Network network = new Network(orderJSON.toJson(order.getOrder(), order, LocalDateTime.now()));
+                        Thread thread = new Thread(network);
+                        thread.start();
+//                        Network.sendSocket(orderJSON.toJson(order.getOrder(), order, LocalDateTime.now()));
 //                        System.out.println(orderJSON.toJson(order.getOrder(), order));
                         boughtlist = order.getOrder();
-
+//
                         PrinterJob pj = PrinterJob.getPrinterJob();
                         pj.setPrintable(new PrintReceipt(), PrintReceipt.getPageFormat(pj));
                         try {

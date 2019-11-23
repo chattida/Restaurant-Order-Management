@@ -3,11 +3,20 @@ import java.net.*;
 
 import org.json.simple.*;
 
-public class Network {
-    private static String HOST;
-    private static int PORT;
+public class Network implements Runnable {
+    private String HOST;
+    private int PORT;
+    private JSONArray list;
 
-    public static void sendSocket(JSONArray list) {
+    public Network(JSONArray list) {
+        this.list = list;
+    }
+
+    public void run() {
+        sendSocket(list);
+    }
+
+    public void sendSocket(JSONArray list) {
         Config config = new Config();
         HOST = config.getHOST();
         PORT = config.getPORT();
