@@ -10,10 +10,6 @@ public class Countdown extends JLabel implements Runnable {
         this.nowtime = y;
         this.gettime = x;
         this.sec = Math.abs((gettime - nowtime)/1000);
-        System.out.println(nowtime);
-        System.out.println(gettime);
-        System.out.println(sec);
-        System.out.println("-------------------");
     }
 
     public void run() {

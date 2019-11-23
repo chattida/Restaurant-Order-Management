@@ -25,7 +25,7 @@ public class Main {
             }
             json.add(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
             now.add(json);
-            System.out.println(now);
+//            System.out.println(now);
             GUI.reframe(0);
         }
     }
