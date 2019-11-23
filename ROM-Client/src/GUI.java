@@ -7,7 +7,6 @@ import java.awt.print.PrinterJob;
 import java.util.HashMap;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
-
 import org.json.simple.*;
 
 public class GUI implements ActionListener {
@@ -242,8 +241,8 @@ public class GUI implements ActionListener {
                     if (n == 0) {
                         Json orderJSON = new Json();
                         order.addOrderID();
-                        Network.sendSocket(orderJSON.toJson(order.getOrder(), order));
-//                        System.out.println(orderJSON.toJson(order.getOrder(), order));
+                        Network.sendSocket(orderJSON.toJson(order.getOrder(), order, LocalDateTime.now()));
+                        System.out.println(orderJSON.toJson(order.getOrder(), order, LocalDateTime.now()));
                         order.resetOrder();
                         Total.reset();
                         addTable(orderList);
