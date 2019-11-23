@@ -4,7 +4,7 @@ import java.util.Set;
 
 public class Order {
     private HashMap<String, Integer> data = new HashMap<String, Integer>();
-    private int orderID = 0;
+    private static int orderID = 0;
 
     public void addOrder(String name) {
         try {
@@ -41,7 +41,15 @@ public class Order {
         return orderID;
     }
 
+    public static int getOrderNum() {
+        return orderID;
+    }
+
     public HashMap<String, Integer> getOrder() {
+        return data;
+    }
+
+    public HashMap<String, Integer> getData() {
         return data;
     }
 }
