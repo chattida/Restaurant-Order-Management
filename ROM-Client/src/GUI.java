@@ -149,8 +149,8 @@ public class GUI implements ActionListener {
         // order, reset button
         JButton summit = new JButton("Order");
         JButton reset = new JButton("Reset");
-        summit.setFont(new Font("Courier New", Font.BOLD, 16));
-        reset.setFont(new Font("Courier New", Font.BOLD, 16));
+        summit.setFont(new Font("Courier New", Font.BOLD, 15));
+        reset.setFont(new Font("Courier New", Font.BOLD, 15));
         summit.addActionListener(this);
         reset.addActionListener(this);
         summit.setIcon(new ImageIcon("img/cart.png"));
