@@ -130,7 +130,7 @@ public class GUI implements ActionListener {
         price_text.setHorizontalAlignment(JLabel.LEFT);
         price_total.setHorizontalAlignment(JLabel.RIGHT);
         price_text.setFont(new Font("Courier New", Font.BOLD, 40));
-        price_total.setFont(new Font("Courier New", Font.BOLD, 40));
+        price_total.setFont(new Font("Courier New", Font.BOLD, 34));
         priceBox.add(price_text);
         priceBox.add(price_total);
         // table

@@ -61,14 +61,17 @@ public class PrintReceipt implements Printable {
                 for (Object i : boughtlist.keySet()) {
                     String firstpart = i + " * [" + boughtlist.get(i) + "]";
                     String secondpart = Total.getPrice(i + "", Integer.parseInt(boughtlist.get(i) + ""));
-                    System.out.println(firstpart + repeat(36 - firstpart.length() - secondpart.length()) + secondpart);
+//                    System.out.println(firstpart + repeat(36 - firstpart.length() - secondpart.length()) + secondpart);
                     g2d.drawString(firstpart + repeat(36 - firstpart.length() - secondpart.length()) + secondpart, 10, y);
                     y += yShift;
                 }
 
                 g2d.drawString("-------------------------------------", 10, y);
                 y += yShift;
-                g2d.drawString(" Grand Total: " + String.format("%.02f ฿ ", Total.getTotal()), 10, y);
+                String grand = "Grand Total: ";
+                String total = String.format("%.02f ", Total.getTotal());
+                g2d.drawString(grand + repeat(36 - grand.length() - total.length()) + total, 10, y);
+//                g2d.drawString("Grand Total: " + String.format("%.02f ฿ ", Total.getTotal()), 10, y);
                 y += yShift;
                 g2d.drawString("-------------------------------------", 10, y);
                 y += yShift;
