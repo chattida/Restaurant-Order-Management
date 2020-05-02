@@ -1,6 +1,14 @@
 # Restaurant Order Management
 This repository consists of codes of "Object-oriented programming (OOP)" Project, Faculty of Information Technology, King Mongkut's Institute of Technology Ladkrabang (KMITL).
 ______
+# Preview
+### • Client
+![](README/client.png)
+### • Server
+![](README/server.png)
+### • Receipt
+![](README/receipt.png)
+______
 # Team Member
 |<img src="/README/profile1.jpg" width="150px" height="150px">|<img src="/README/profile2.jpg" width="150px" height="150px">|<img src="/README/profile3.jpg" width="150px" height="150px">|<img src="/README/profile4.jpg" width="150px" height="150px">|<img src="/README/profile5.jpg" width="150px" height="150px">|
 |:-----:|:-----:|:-----:|:-----:|:-----:|
